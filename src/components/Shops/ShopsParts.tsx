@@ -17,7 +17,7 @@ export const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
       <div className="text-xl font-bold">{shop.shopnumber}</div>
       <div className="h-[80%] flex-col justify-end items-end">
         <div className="text-lg">{shop.shopfloor}</div>
-        <div className="text-6xl capitalize">{shop.shopname}</div>
+        <div className="text-6xl capitalize truncate">{shop.shopname}</div>
         <div className="text-lg font-medium">{shop.monthlyrent}</div>
       </div>
     </div>

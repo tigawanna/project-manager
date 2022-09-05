@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { collection, limit, orderBy, query,where } from "firebase/firestore";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
-import { TheTable } from "table-for-react";
+// import { TheTable } from "table-for-react";
 import { Payment as PaymentType} from "./../../utils/other/types";
 import { header } from "../../utils/payment-vars";
 import { IconContext } from "react-icons";
@@ -13,8 +13,10 @@ import { useNavigate } from "react-router-dom";
 import { monthindex, months,getMonthIndex, getmonth } from "../../utils/paymentutils";
 import { deletePayment, setPayment, dummy_payment, insert_dummy_to_cache } from './../../utils/sharedutils';
 import { findFloor } from './../../utils/other/util';
-
 import { useQueryClient} from 'react-query';
+import { TheTable} from './../../table/index';
+
+
 
 interface paymentProps {
   user?: User | null;
@@ -67,15 +69,15 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
 
 
   const paymentRef = query(collection(db, "payments"), orderBy("date", "desc")
-  // ,where('month', "==" , month)
+  ,where('month', "==" , month)
   );
   const paymentQuery = useFirestoreQueryData(["payments",month], paymentRef,{
   
   });
 
-  if (!paymentQuery.data && month === getmonth) {
-    insert_dummy_to_cache(dummy_payment,["payments",getmonth],queryClient)
-   }
+  // if (!paymentQuery.data && month === getmonth) {
+  //   insert_dummy_to_cache(dummy_payment,["payments",getmonth],queryClient)
+  // }
 
   if (paymentQuery.error) {
     return (
@@ -151,7 +153,8 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
         </div>
       ) : null}
 
-      <div className="absolute h-full w-full z-40 overflow-x-scroll lg:overflow-x-hidden">
+      <div className="sticky top-0 h-full w-full z-40 overflow-x-scroll lg:overflow-x-hidden 
+      overflow-y-scroll">
         <TheTable
           rows={payments}
           header={header}

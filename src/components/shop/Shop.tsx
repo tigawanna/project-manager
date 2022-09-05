@@ -119,10 +119,10 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
 
  const payments = paymentQuery.data as Payment[];
 
- if(!payments && shop.shopnumber && shop.shopfloor === "ground"){
-  insert_dummy_to_cache(get_dummy_shop_payment(shop.shopnumber),
-  ["payment", shop?.shopfloor, shop?.shopnumber],queryClient)
- }
+//  if(!payments && shop.shopnumber && shop.shopfloor === "ground"){
+//   insert_dummy_to_cache(get_dummy_shop_payment(shop.shopnumber),
+//   ["payment", shop?.shopfloor, shop?.shopnumber],queryClient)
+//  }
 
   if (paymentQuery.error) {
     return (

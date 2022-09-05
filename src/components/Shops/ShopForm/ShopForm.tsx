@@ -69,15 +69,7 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen }) 
         // Return a context object with the snapshotted value
         return { previousShops };
       },
-      // // If the mutation fails, use the context returned from onMutate to roll back
-      // onError: (err, newTodo, context) => {
-      //   //@ts-ignore
-      //   queryClient.setQueryData(["shops",floor], context.previousShops);
-      // },
-      // // Always refetch after error or success:
-      // onSettled: () => {
-      //      queryClient.invalidateQueries(["shops",floor]);
-      // },
+
     }
   );
 

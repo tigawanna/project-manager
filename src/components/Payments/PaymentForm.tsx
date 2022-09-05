@@ -12,7 +12,7 @@ import { handleSubmit } from './../../utils/paymentutils';
 import { QueryClient } from 'react-query';
 
 
-;
+
 
 
 
@@ -45,7 +45,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ open,setOpen,user,quer
     paymentId:"",
     madeBy:"",
     month:getmonth,
-    paymentmode:"cash"
+    paymentmode:"cash_deposit"
 
   });
 
