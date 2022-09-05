@@ -62,10 +62,10 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
   };
 
   const ratio = ((top.height * factor(top.height)) / mainH) * 100;
-  const totalHeight = mainH - top.height;
+  const totalHeight = mainH - top.height - 70;
   const bottomHeight = totalHeight;
 
-  console.log(" ratio === ", ratio);
+  // console.log(" ratio === ", ratio);
 
   const validate = (prev: any, current: any) => {
     setError({ name: "", error: "" });
@@ -141,7 +141,7 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
   }
   const payments = paymentQuery.data as PaymentType[];
 
-  //  console.log("paymets being sent to table ====== ",payments)
+   console.log("paymets being sent to table ====== ",payments)
 
   return (
     <div className="w-full h-[100%] ">
