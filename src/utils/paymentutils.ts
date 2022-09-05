@@ -3,7 +3,9 @@ import { paymentValidation } from "./payment-form-validate";
 import { User } from 'firebase/auth';
 import { setPayment } from './sharedutils';
 import { QueryClient } from 'react-query';
-var uniqid = require('uniqid')
+// var uniqid = require('uniqid')
+
+import uniqid from 'uniqid'
 
 
 const d = new Date();
