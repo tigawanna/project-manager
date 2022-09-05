@@ -163,64 +163,76 @@ export interface TheTableProps {
   
   
   return (
-      <div className="w-full h-full relative top-0">
-    <div className="w-full h-full overflow-x-scroll lg:overflow-x-hidden ">
-          <table border={1} className="table-auto w-full ">
-            <thead className="p-7 w-screen sticky top-0 h-16">
+    <div className="w-full h-full relative top-0">
+      <div className="h-fit">
+        <table border={1} className="table-auto w-full ">
+          <thead className="p-7 w-screen sticky top-0 h-16">
             <IconContext.Provider
-              value={{ size: "20px",className:"text-white m-0 p-0 flex-center hover:bg-purple-700 hover:rounded-sm"  }}
+              value={{
+                size: "20px",
+                className:
+                  "text-white m-0 p-0 flex-center hover:bg-purple-700 hover:rounded-sm",
+              }}
             >
-          <tr>
+              <tr>
                 {header &&
                   header.map((x, i) => {
-                    return <td key={x.name + i}
-                    className="bg-slate-900 p-2 text-white  border"
-                    >
-                  <div className="flex justify-center items-center w-full bg-slate-900 h-full">
-                    <div className="flex font-semibold">{x.name}</div>
-                       {sort?<div className="flex flex-col ml-1 h-[60%] ">
-                          <FaSortUp onClick={() => handleSortAsc(x.prop)}/>
-                          <FaSortDown onClick={() => handleSortDesc(x.prop)} />
-                        </div>:null}
-                    </div>
-                
-                    </td>;
+                    return (
+                      <td
+                        key={x.name + i}
+                        className="bg-slate-900 p-2 text-white  border"
+                      >
+                        <div className="flex justify-center items-center w-full bg-slate-900 h-full">
+                          <div className="flex font-semibold">{x.name}</div>
+                          {sort ? (
+                            <div className="flex flex-col ml-1 h-[60%] ">
+                              <FaSortUp onClick={() => handleSortAsc(x.prop)} />
+                              <FaSortDown
+                                onClick={() => handleSortDesc(x.prop)}
+                              />
+                            </div>
+                          ) : null}
+                        </div>
+                      </td>
+                    );
                   })}
-                {update ? <th className=" bg-slate-900 text-white opacity-100">Edit</th> : null}
+                {update ? (
+                  <th className=" bg-slate-900 text-white opacity-100">Edit</th>
+                ) : null}
               </tr>
-              </IconContext.Provider>
-            </thead>
-            <tbody className="h-full">
-              {data &&
-                data.map((dataitem:Object, dataindex:number) => {
-                  return mainRow(
-                    dataindex,
-                    dataitem,
-                    header,
-                    handleChange,
-                    editIdx,
-                    startEditing,
-                    stopEditing,
-                    removeItem,
-                    cancelEdit,
-                    input,
-                    update,
-                    error
-                  );
-                })}
-     
-            </tbody>
-          </table>
-           {/* undo butto to restore removed row after edit */}
-          {countdown!==5000? (
-          <div className="fixed bottom-[10%] right-[10%] rounded-lg w-24 p-2  font-medium 
-          hover:bg-purple-800 bg-slate-900">
-            <UndoModal  undoRemove={undoRemove} countdown={countdown} />
+            </IconContext.Provider>
+          </thead>
+          <tbody className="h-full">
+            {data &&
+              data.map((dataitem: Object, dataindex: number) => {
+                return mainRow(
+                  dataindex,
+                  dataitem,
+                  header,
+                  handleChange,
+                  editIdx,
+                  startEditing,
+                  stopEditing,
+                  removeItem,
+                  cancelEdit,
+                  input,
+                  update,
+                  error
+                );
+              })}
+          </tbody>
+        </table>
+        {/* undo butto to restore removed row after edit */}
+        {countdown !== 5000 ? (
+          <div
+            className="fixed bottom-[10%] right-[10%] rounded-lg w-24 p-2  font-medium 
+          hover:bg-purple-800 bg-slate-900"
+          >
+            <UndoModal undoRemove={undoRemove} countdown={countdown} />
           </div>
         ) : null}
-        </div>
-  
       </div>
+    </div>
   );
   }
   

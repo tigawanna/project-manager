@@ -37,7 +37,7 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
     paymentId:"",
     madeBy:"",
     month:getmonth,
-    paymentmode:"cash"
+    paymentmode:"cash_deposit"
 
   });
 
@@ -136,7 +136,7 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
     return <div className="w-full h-full flex-center"> loading ..... </div>;
   }
 
-  console.log("shop payments === ",payments);
+  // console.log("shop payments === ",payments);
 
   return (
     <div className="h-full w-full bg-slate-600 overflow-y-hidden">

@@ -1,28 +1,37 @@
-import React, { useState } from "react";
-import { collection, limit, orderBy, query,where } from "firebase/firestore";
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 // import { TheTable } from "table-for-react";
-import { Payment as PaymentType} from "./../../utils/other/types";
+import { Payment as PaymentType } from "./../../utils/other/types";
 import { header } from "../../utils/payment-vars";
 import { IconContext } from "react-icons";
 import { FaRegEdit, FaTimes, FaPlus, FaPrint } from "react-icons/fa";
 import { PaymentForm } from "./PaymentForm";
 import { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { monthindex, months,getMonthIndex, getmonth } from "../../utils/paymentutils";
-import { deletePayment, setPayment, dummy_payment, insert_dummy_to_cache } from './../../utils/sharedutils';
-import { findFloor } from './../../utils/other/util';
-import { useQueryClient} from 'react-query';
-import { TheTable} from './../../table/index';
+import {
+  monthindex,
+  months,
+  getMonthIndex,
+  getmonth,
+} from "../../utils/paymentutils";
+import {
+  deletePayment,
+  setPayment,
+  dummy_payment,
+  insert_dummy_to_cache,
+} from "./../../utils/sharedutils";
+import { findFloor } from "./../../utils/other/util";
+import { useQueryClient } from "react-query";
+import { TheTable } from "./../../table/index";
+import { useCountdownTimer } from "use-countdown-timer";
 
-
+import useMeasure from "react-use-measure";
 
 interface paymentProps {
   user?: User | null;
 }
-
-
 
 export const Payment: React.FC<paymentProps> = ({ user }) => {
   const [update, setUpdate] = useState(false);
@@ -30,14 +39,40 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
   const [open, setOpen] = useState(false);
   const [month, setMonth] = useState<string>(getmonth);
   const navigate = useNavigate();
-  const queryClient = useQueryClient() 
+  const queryClient = useQueryClient();
+  const [ref, top] = useMeasure();
+
+  const [mainH, setMainH] = useState(window?.innerHeight ?? 0);
+
+  // console.log("total height ==== >>  ", mainH);
+  // console.log("top component height ==== >>  ",top.height);
+  // console.log("bottom component height ==== >>  ", bottom.height);
+
+  const factor = (height: number) => {
+    if (height >= 190) {
+      return 1.3;
+    }
+    if (height >= 145) {
+      return 1.4;
+    }
+    if (height >= 97) {
+      return 1.6;
+    }
+    return 2;
+  };
+
+  const ratio = ((top.height * factor(top.height)) / mainH) * 100;
+  const totalHeight = mainH - top.height;
+  const bottomHeight = totalHeight;
+
+  console.log(" ratio === ", ratio);
 
   const validate = (prev: any, current: any) => {
     setError({ name: "", error: "" });
     return true;
   };
 
-  const saveChanges = (prev: PaymentType, current:PaymentType) => {
+  const saveChanges = (prev: PaymentType, current: PaymentType) => {
     // console.log("saving ...",current)
     const item: PaymentType = {
       date: current.date,
@@ -50,13 +85,24 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
       editedBy: user?.displayName,
       editedOn: new Date(),
     };
-    setPayment(item, current.paymentId,findFloor(current.shopnumber),current.shopnumber,queryClient);
+    setPayment(
+      item,
+      current.paymentId,
+      findFloor(current.shopnumber),
+      current.shopnumber,
+      queryClient
+    );
   };
 
-  const deleteRow = (current:PaymentType) => {
+  const deleteRow = (current: PaymentType) => {
     // console.log("delteing current ,",current)
-    setError({name:"name",error:"not john"})
-    deletePayment(current,findFloor(current.shopnumber),current.shopnumber,queryClient)
+    setError({ name: "name", error: "not john" });
+    deletePayment(
+      current,
+      findFloor(current.shopnumber),
+      current.shopnumber,
+      queryClient
+    );
   };
 
   const clearError = () => {
@@ -65,15 +111,18 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
 
   const selectMonth = (index: number) => {
     setMonth(months[index]);
-};
+  };
 
-
-  const paymentRef = query(collection(db, "payments"), orderBy("date", "desc")
-  ,where('month', "==" , month)
+  const paymentRef = query(
+    collection(db, "payments"),
+    orderBy("date", "desc"),
+    where("month", "==", month)
   );
-  const paymentQuery = useFirestoreQueryData(["payments",month], paymentRef,{
-  
-  });
+  const paymentQuery = useFirestoreQueryData(
+    ["payments", month],
+    paymentRef,
+    {}
+  );
 
   // if (!paymentQuery.data && month === getmonth) {
   //   insert_dummy_to_cache(dummy_payment,["payments",getmonth],queryClient)
@@ -90,16 +139,17 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
   if (paymentQuery.isLoading) {
     return <div className="w-full h-full flex-center"> loading ..... </div>;
   }
-
   const payments = paymentQuery.data as PaymentType[];
- 
-//  console.log("paymets being sent to table ====== ",payments)
 
- return (
-    <div className="w-full h-[85%] overflow-y-hidden absolute">
+  //  console.log("paymets being sent to table ====== ",payments)
 
-      <div className="h-fit w-full bg-slate-400  flex-wrap flex-center relative top-0 
-      right-1 left-1 p-1">
+  return (
+    <div className="w-full h-[100%] ">
+      <div
+        ref={ref}
+        className="h-fit w-full bg-slate-400  flex-wrap flex-center fixed top-[60px]
+      right-1 left-1 p-1 "
+      >
         <div className="h-full w-fit bg-slate-600 p-2  flex-center rounded-xl">
           <IconContext.Provider
             value={{
@@ -132,7 +182,9 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
             if (index <= monthindex) {
               return (
                 <div
-                style={{ backgroundColor:index === getMonthIndex(month) ? "purple" : "",
+                  style={{
+                    backgroundColor:
+                      index === getMonthIndex(month) ? "purple" : "",
                   }}
                   key={index}
                   onClick={() => selectMonth(index)}
@@ -149,12 +201,22 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
 
       {open ? (
         <div className="bg-slate-700 fixed z-50 w-full h-full">
-          <PaymentForm user={user} open={open} setOpen={setOpen} queryClient={queryClient}/>
+          <PaymentForm
+            user={user}
+            open={open}
+            setOpen={setOpen}
+            queryClient={queryClient}
+          />
         </div>
       ) : null}
 
-      <div className="sticky top-0 h-full w-full z-40 overflow-x-scroll lg:overflow-x-hidden 
-      overflow-y-scroll">
+      <div
+        style={{
+          top: `${ratio}%`,
+          height: bottomHeight,
+        }}
+        className="absolute  w-full  overflow-y-scroll "
+      >
         <TheTable
           rows={payments}
           header={header}

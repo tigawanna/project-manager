@@ -15,6 +15,7 @@ import { Shops } from "./components/Shops/Shops";
 import { Shop } from "./components/shop/Shop";
 import { Payment } from "./components/Payments/Payment";
 import { PrintPreview } from "./components/Print/PrintPreview";
+import { Test } from './components/test/Test';
 
 function App() {
   const query = useAuthUser("user", auth);
@@ -104,6 +105,7 @@ function App() {
             />
             {/* @ts-ignore */}
             <Route path="/login" element={<Login user={user} />} />
+            <Route path="/test" element={<Test />} />
           </Routes>
         </div>
       </BrowserRouter>
