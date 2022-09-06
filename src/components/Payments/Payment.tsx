@@ -203,8 +203,7 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
           height: bottomHeight,
           bottom:0
         }}
-        className="absolute  w-full  overflow-y-scroll  scrollbar-thin scrollbar-thumb-purple-400"
-      >
+      className="absolute  w-full  overflow-y-scroll  scrollbar-thin scrollbar-thumb-purple-400">
         <TheTable
           rows={payments}
           header={header}

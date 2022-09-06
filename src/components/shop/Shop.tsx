@@ -31,17 +31,16 @@ interface ShopProps {
 export const Shop: React.FC<ShopProps> = ({ user }) => {
   const { state } = useLocation();
   const shop = state as ShopType;
-  const queryClient = useQueryClient() 
+  const queryClient = useQueryClient();
   const [formopen, setFormOpen] = useState(false);
   const [input, setInput] = useState<Payment>({
     date: new Date(),
-    shopnumber:shop.shopnumber,
-    payment:1000,
-    paymentId:"",
-    madeBy:"",
-    month:getmonth,
-    paymentmode:"cash_deposit"
-
+    shopnumber: shop.shopnumber,
+    payment: 1000,
+    paymentId: "",
+    madeBy: "",
+    month: getmonth,
+    paymentmode: "cash_deposit",
   });
 
   const [update, setUpdate] = useState(false);
@@ -52,29 +51,29 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
   const [mainH, setMainH] = useState(window?.innerHeight ?? 0);
   const [ref, top] = useMeasure();
 
-  console.log(top.height,top.width)
+  // console.log(top.height,top.width)
   // console.log("ration === > ",top.width/top.height);
-  const axis = ()=>{
-  return 0
-  }
+  // console.log("top percentage === ",topHeight,bottomHeight)
+  // const axis = () => {
+  //   return 0;
+  // };
 
-const bottomHeight = mainH - (top.height + axis());
+  const topHeight = (top.height / mainH) * 100;
+  const bottomHeight = 100 - (topHeight + 12);
 
-  const validate = (prev:Payment, current:Payment) => {
-    if(current.payment<1000){
+  const validate = (prev: Payment, current: Payment) => {
+    if (current.payment < 1000) {
       setError({ name: "payment", error: "payment seems too low, 1k minimun" });
-      return false      
+      return false;
     }
- 
 
     setError({ name: "", error: "" });
     return true;
   };
 
-  const saveChanges = (prev:Payment, current: Payment) => {
+  const saveChanges = (prev: Payment, current: Payment) => {
     // console.log("saving ...", current);
-
-    const item: Payment = {
+   const item: Payment = {
       date: current.date,
       shopnumber: current.shopnumber.toUpperCase(),
       madeBy: current.madeBy,
@@ -85,30 +84,45 @@ const bottomHeight = mainH - (top.height + axis());
       editedBy: user?.displayName,
       editedOn: new Date(),
     };
-    setPayment(item, current.paymentId, shop.shopfloor, 
-      shop.shopnumber,queryClient);
+    setPayment(
+      item,
+      current.paymentId,
+      shop.shopfloor,
+      shop.shopnumber,
+      queryClient
+    );
   };
 
   const deleteRow = (current: any) => {
     // console.log("delteing current ,",current)
-    deletePayment(current, shop.shopfloor, shop.shopnumber,queryClient);
+    deletePayment(current, shop.shopfloor, shop.shopnumber, queryClient);
   };
 
-  const floor = shop.shopfloor
+  const floor = shop.shopfloor;
 
-  const handleTheChange=(e:any)=>{
-    handleChange({e,input,setInput})
-  }
+  const handleTheChange = (e: any) => {
+    handleChange({ e, input, setInput });
+  };
 
-  const handleTheSubmit=async(e:any)=>{
-    handleSubmit({e,input,floor,user,error,setError,open,setOpen,formopen,setFormOpen,queryClient})
-  }
+  const handleTheSubmit = async (e: any) => {
+    handleSubmit({
+      e,
+      input,
+      floor,
+      user,
+      error,
+      setError,
+      open,
+      setOpen,
+      formopen,
+      setFormOpen,
+      queryClient,
+    });
+  };
 
   const clearError = () => {
     setError({ name: "", error: "" });
   };
-
-  
 
   const paymentRef = query(
     collection(
@@ -121,7 +135,7 @@ const bottomHeight = mainH - (top.height + axis());
     ),
     orderBy("date", "desc")
   );
- 
+
   // console.log("shop payment dapenadncies ===== ",shop)
 
   const paymentQuery = useFirestoreQueryData(
@@ -129,14 +143,12 @@ const bottomHeight = mainH - (top.height + axis());
     paymentRef
   );
 
+  const payments = paymentQuery.data as Payment[];
 
- const payments = paymentQuery.data as Payment[];
-
-
-//  if(!payments && shop.shopnumber && shop.shopfloor === "ground"){
-//   insert_dummy_to_cache(get_dummy_shop_payment(shop.shopnumber),
-//   ["payment", shop?.shopfloor, shop?.shopnumber],queryClient)
-//  }
+  //  if(!payments && shop.shopnumber && shop.shopfloor === "ground"){
+  //   insert_dummy_to_cache(get_dummy_shop_payment(shop.shopnumber),
+  //   ["payment", shop?.shopfloor, shop?.shopnumber],queryClient)
+  //  }
 
   if (paymentQuery.error) {
     return (
@@ -153,15 +165,9 @@ const bottomHeight = mainH - (top.height + axis());
   // console.log("shop payments === ",payments);
 
   return (
-    <div 
-
-    className=" w-full h-full">
-      <div className="h-fit ">
-        <div
-          ref={ref}
-          className="h-fit w-full   flex-wrap flex-center fixed top-[10%] 
-        right-1 left-1 p-1 z-40 bg-slate-700"
-        >
+    <div className=" w-full h-full flex flex-col justify-between">
+      <div ref={ref} className="h-fit">
+        <div className="h-full w-full py-3 flex-wrap flex-center  z-40 bg-slate-700">
           <div className="mx-1 font-bold border border-white px-1">
             {shop.shopname}
           </div>
@@ -172,8 +178,10 @@ const bottomHeight = mainH - (top.height + axis());
             {" "}
             {shop.shopfloor}
           </div>
-          <div className="h-full mx-2 w-[90%] md:w-fit p-2  
-          flex-center rounded-xl bg-slate-900">
+          <div
+            className="mx-2 w-[90%] md:w-fit p-2  
+          flex-center rounded-xl bg-slate-900"
+          >
             <IconContext.Provider
               value={{
                 size: "25px",
@@ -227,9 +235,9 @@ const bottomHeight = mainH - (top.height + axis());
 
       <div
         style={{
-          top: `${top.height + 66}px`,
-          height: `${bottomHeight}px`,
-         bottom: '0px',
+          // top: `${top.height + 66}px`,
+          height: `${bottomHeight}%`,
+          bottom: "0px",
         }}
         className="absolute  w-full  overflow-y-scroll 
         scrollbar-thin scrollbar-thumb-purple-400"
