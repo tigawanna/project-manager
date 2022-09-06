@@ -141,7 +141,7 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
   }
   const payments = paymentQuery.data as PaymentType[];
 
-   console.log("paymets being sent to table ====== ",payments)
+  // console.log("paymets being sent to table ====== ",payments)
 
   return (
     <div className="w-full h-[100%] ">

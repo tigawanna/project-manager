@@ -139,12 +139,14 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
   // console.log("shop payments === ",payments);
 
   return (
-    <div className="h-full w-full bg-slate-600 overflow-y-hidden">
+    <div className=" w-full bg-slate-600 overflow-y-hidden">
       <div
-        className="h-fit w-full bg-slate-400  flex-wrap flex-center relative top-0 
-      right-1 left-1 p-1"
-      >
-        <div className="h-full w-fit bg-slate-600 p-2  flex-center rounded-xl">
+        className="h-fit w-full   flex-wrap flex-center fixed top-[10%] 
+      right-1 left-1 p-1 z-40 ">
+        <div className="">
+          {shop.shopnumber}
+        </div>
+        <div className="h-full w-fit p-2  flex-center rounded-xl">
           <IconContext.Provider
             value={{
               size: "25px",
@@ -172,6 +174,8 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
         </div>
       </div>
 
+      
+
       <div className="w-full h-fit bg-slate-500 overfloe-x-hidden">
       <ShopDetails shop={shop} />
       </div>
@@ -185,7 +189,8 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
        error={error}
        />:null}
 
-      <div className="w-full h-fit z-40 overflow-x-scroll lg:overflow-x-hidden flex justify-center">
+      <div className="w-full h-full z-40 overflow-x-scroll
+      lg:overflow-x-hidden flex justify-center">
         <div className="absolute w-[99%] bg-white ">
           <TheTable
             rows={payments}
