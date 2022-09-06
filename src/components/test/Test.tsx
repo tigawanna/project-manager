@@ -251,6 +251,73 @@ return (
     <div className="absolute top-[60%] w-full h-[50%] overflow-y-scroll">
       <TheTable rows={rows} header={header} />
     </div>
+
+    {/* <div className=" w-full  bg-slate-600  max-h-screen flex flex-col">
+      <div className="h-[20%]">
+      <div className="h-fit w-full   flex-wrap flex-center fixed top-[10%] right-1 left-1 p-1 z-40">
+          <div className="">{shop.shopnumber}</div>
+          <div className="h-full w-fit p-2  flex-center rounded-xl">
+            <IconContext.Provider
+              value={{
+                size: "25px",
+                className: "mx-[15px] text-white hover:text-purple-600",
+              }}
+            >
+              <FaRegEdit onClick={() => setUpdate(!update)} />
+              {!formopen ? (
+                <FaPlus onClick={() => setFormOpen(!formopen)} />
+              ) : (
+                <FaTimes onClick={() => setFormOpen(!formopen)} />
+              )}
+              <FaPrint
+                onClick={() =>
+                  navigate("/print-preview", {
+                    state: {
+                      rows: payments,
+                      header,
+                      title: `${payments[0].month} payments for ${shop.shopname}`,
+                    },
+                  })
+                }
+              />
+            </IconContext.Provider>
+          </div>
+        </div>
+
+        <div className="w-full h-fit bg-slate-500 overfloe-x-hidden">
+          <ShopDetails shop={shop} />
+        </div>
+      </div>
+
+      {formopen ? (
+        <SharedPaymentForm
+          formopen={formopen}
+          input={input}
+          setFormOpen={setFormOpen}
+          handleChange={handleTheChange}
+          handleSubmit={handleTheSubmit}
+          error={error}
+        />
+      ) : null}
+
+      <div
+        className="w-full h-[75%] max-h-[80%] z-40 overflow-x-scroll
+      lg:overflow-x-hidden flex justify-center"
+      >
+        <div className="absolute w-[99%] bg-white ">
+          <TheTable
+            rows={payments}
+            header={header}
+            error={error}
+            update={update}
+            validate={validate}
+            saveChanges={saveChanges}
+            deleteRow={deleteRow}
+            clearError={clearError}
+          />
+        </div>
+      </div>
+    </div> */}
   </div>
 );
 }

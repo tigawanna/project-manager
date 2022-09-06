@@ -7,16 +7,19 @@ import { db } from "../../firebase/firebaseConfig";
 import { useLocation } from "react-router-dom";
 import { Payment, Shop as ShopType } from "../../utils/other/types";
 import { useNavigate } from "react-router-dom";
-import { TheTable } from "table-for-react";
+// import { TheTable } from "table-for-react";
 import { header } from "../../utils/shop-table-yars";
 import { IconContext } from "react-icons";
 import { FaRegEdit, FaPrint, FaTimes } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
-import { setPayment,deletePayment, dummy_g01, get_dummy_shop_payment } from "../../utils/sharedutils";
+import { setPayment,deletePayment, dummy_g01, get_dummy_shop_payment, formatTyme } from "../../utils/sharedutils";
 import { getmonth, handleChange, handleSubmit } from './../../utils/paymentutils';
 import { SharedPaymentForm } from "../Shared/SharedPaymentForm";
 import { useQueryClient} from 'react-query';
 import { insert_dummy_to_cache} from './../../utils/sharedutils';
+import useMeasure from "react-use-measure";
+import { TheTable } from "../../table";
+
 
 
 interface ShopProps {
@@ -46,6 +49,16 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
 
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [mainH, setMainH] = useState(window?.innerHeight ?? 0);
+  const [ref, top] = useMeasure();
+
+  console.log(top.height,top.width)
+  // console.log("ration === > ",top.width/top.height);
+  const axis = ()=>{
+  return 0
+  }
+
+const bottomHeight = mainH - (top.height + axis());
 
   const validate = (prev:Payment, current:Payment) => {
     if(current.payment<1000){
@@ -119,6 +132,7 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
 
  const payments = paymentQuery.data as Payment[];
 
+
 //  if(!payments && shop.shopnumber && shop.shopfloor === "ground"){
 //   insert_dummy_to_cache(get_dummy_shop_payment(shop.shopnumber),
 //   ["payment", shop?.shopfloor, shop?.shopnumber],queryClient)
@@ -139,70 +153,98 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
   // console.log("shop payments === ",payments);
 
   return (
-    <div className=" w-full bg-slate-600 overflow-y-hidden">
+    <div 
+
+    className=" w-full h-full">
+      <div className="h-fit ">
+        <div
+          ref={ref}
+          className="h-fit w-full   flex-wrap flex-center fixed top-[10%] 
+        right-1 left-1 p-1 z-40 bg-slate-700"
+        >
+          <div className="mx-1 font-bold border border-white px-1">
+            {shop.shopname}
+          </div>
+          <div className="mx-1 font-bold border-white px-1">
+            {shop.shopnumber}
+          </div>
+          <div className="mx-1 font-bold border border-white px-1">
+            {" "}
+            {shop.shopfloor}
+          </div>
+          <div className="h-full mx-2 w-[90%] md:w-fit p-2  
+          flex-center rounded-xl bg-slate-900">
+            <IconContext.Provider
+              value={{
+                size: "25px",
+                className: "mx-[15px] text-white hover:text-purple-600",
+              }}
+            >
+              <FaRegEdit onClick={() => setUpdate(!update)} />
+              {!formopen ? (
+                <FaPlus onClick={() => setFormOpen(!formopen)} />
+              ) : (
+                <FaTimes onClick={() => setFormOpen(!formopen)} />
+              )}
+              <FaPrint
+                onClick={() =>
+                  navigate("/print-preview", {
+                    state: {
+                      rows: payments,
+                      header,
+                      title: `${payments[0].month} payments for ${shop.shopname}`,
+                    },
+                  })
+                }
+              />
+            </IconContext.Provider>
+          </div>
+          <div className="mx-1 font-bold">
+            {" "}
+            {shop.monthlyrent.toLocaleString()}
+          </div>
+          <div className="mx-1 font-bold border border-white px-1">
+            {" "}
+            {formatTyme(shop.date)}
+          </div>
+          <div className="mx-1 font-bold  px-1">
+            {""}
+            {shop.shoparrears}
+          </div>
+        </div>
+      </div>
+
+      {formopen ? (
+        <SharedPaymentForm
+          formopen={formopen}
+          input={input}
+          setFormOpen={setFormOpen}
+          handleChange={handleTheChange}
+          handleSubmit={handleTheSubmit}
+          error={error}
+        />
+      ) : null}
+
       <div
-        className="h-fit w-full   flex-wrap flex-center fixed top-[10%] 
-      right-1 left-1 p-1 z-40 ">
-        <div className="">
-          {shop.shopnumber}
-        </div>
-        <div className="h-full w-fit p-2  flex-center rounded-xl">
-          <IconContext.Provider
-            value={{
-              size: "25px",
-              className: "mx-[15px] text-white hover:text-purple-600",
-            }}
-          >
-            <FaRegEdit onClick={() => setUpdate(!update)} />
-            {!formopen ? (
-              <FaPlus onClick={() => setFormOpen(!formopen)} />
-            ) : (
-              <FaTimes onClick={() => setFormOpen(!formopen)} />
-            )}
-            <FaPrint
-              onClick={() =>
-                navigate("/print-preview", {
-                  state: {
-                    rows: payments,
-                    header,
-                    title: `${payments[0].month} payments for ${shop.shopname}`,
-                  },
-                })
-              }
-            />
-          </IconContext.Provider>
-        </div>
-      </div>
-
-      
-
-      <div className="w-full h-fit bg-slate-500 overfloe-x-hidden">
-      <ShopDetails shop={shop} />
-      </div>
-  
-      {formopen?<SharedPaymentForm
-       formopen={formopen}
-       input={input}
-       setFormOpen={setFormOpen}
-       handleChange={handleTheChange}
-       handleSubmit={handleTheSubmit}
-       error={error}
-       />:null}
-
-      <div className="w-full h-full z-40 overflow-x-scroll
-      lg:overflow-x-hidden flex justify-center">
-        <div className="absolute w-[99%] bg-white ">
-          <TheTable
-            rows={payments}
-            header={header}
-            error={error}
-            update={update}
-            validate={validate}
-            saveChanges={saveChanges}
-            deleteRow={deleteRow}
-           clearError={clearError}
-          />
-        </div>
+        style={{
+          top: `${top.height + 66}px`,
+          height: `${bottomHeight}px`,
+         bottom: '0px',
+        }}
+        className="absolute  w-full  overflow-y-scroll 
+        scrollbar-thin scrollbar-thumb-purple-400"
+      >
+        <TheTable
+          rows={payments}
+          header={header}
+          error={error}
+          sort={false}
+          update={update}
+          validate={validate}
+          saveChanges={saveChanges}
+          deleteRow={deleteRow}
+          clearError={clearError}
+        />
       </div>
     </div>
   );

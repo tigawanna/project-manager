@@ -48,20 +48,7 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
   // console.log("top component height ==== >>  ",top.height);
   // console.log("bottom component height ==== >>  ", bottom.height);
 
-  const factor = (height: number) => {
-    if (height >= 190) {
-      return 1.3;
-    }
-    if (height >= 145) {
-      return 1.4;
-    }
-    if (height >= 97) {
-      return 1.6;
-    }
-    return 2;
-  };
 
-  const ratio = ((top.height * factor(top.height)) / mainH) * 100;
   const totalHeight = mainH - top.height - 70;
   const bottomHeight = totalHeight;
 
@@ -212,10 +199,11 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
 
       <div
         style={{
-          top: `${ratio}%`,
+          // top: `${ratio}%`,
           height: bottomHeight,
+          bottom:0
         }}
-        className="absolute  w-full  overflow-y-scroll "
+        className="absolute  w-full  overflow-y-scroll  scrollbar-thin scrollbar-thumb-purple-400"
       >
         <TheTable
           rows={payments}

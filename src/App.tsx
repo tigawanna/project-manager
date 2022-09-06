@@ -56,12 +56,12 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden">
+    <div className="h-screen w-screen overflow-x-hidden overflow-y-hidden">
       <BrowserRouter>
         <div className="fixed top-[0px] w-[100%] z-50">
           <Toolbar user={user} />
         </div>
-        <div className="w-full h-full mt-16 ">
+        <div className="w-full h-full mt-16 overflow-y-hidden">
           <Routes>
             <Route
               path="/"

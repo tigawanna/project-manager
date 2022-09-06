@@ -19,12 +19,12 @@ code {
 }
 
 
-* {
+/* * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(155, 148, 119) rgb(58, 47, 17);
+  scrollbar-color: rgb(112, 63, 158) rgb(177, 145, 228);
 }
 
-/* Works on Chrome, Edge, and Safari */
+
 *::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -35,9 +35,9 @@ code {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: rgb(209, 162, 61);
+  background-color: rgb(82, 28, 170);
   border-radius: 20px;
-}
+} */
 
 .flex-center{
   @apply flex justify-center items-center
