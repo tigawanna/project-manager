@@ -18,6 +18,7 @@ import { PrintPreview } from "./components/Print/PrintPreview";
 import { Test } from './components/test/Test';
 import { HomeSvg } from "./assets/Homesvg";
 import { useTimeout } from './utils/hooks/hooks';
+import { query } from 'firebase/firestore';
 
 function App() {
 const query = useAuthUser("user", auth);
@@ -26,12 +27,30 @@ const query = useAuthUser("user", auth);
 // console.log(query)
 
   if (query.isLoading ) {
-    return <div className="w-full h-screen flex-center scroll-bar">
-    loading....
-    </div>;
+    return (
+      <div className="w-full h-screen flex-center scroll-bar">
+        <div className="w-[670%] h-[70%] flex-center ">loading....</div>
+      </div>
+    );
+  }
+  if (query.isError) {
+    return (
+      <div className="w-full h-screen flex-center scroll-bar">
+        <div className="w-[670%] h-[70%] flex-center ">
+         {query.error.message}
+        </div>
+        </div>
+    );
+  }
+  const user = query.data;
+  if(!user){
+    return (
+      <div className="w-full h-screen flex-center scroll-bar">
+        <Login/>
+      </div>
+    );
   }
 
-  const user = query.data;
   return (
     <div className="h-screen w-screen scroll-bar">
       <BrowserRouter>

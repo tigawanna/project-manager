@@ -71,7 +71,8 @@ const notifications = notificationsQuery?.data
 return (
   <div className="h-full w-full overflow-y-scroll scroll-bar">
     {notifications?.map((item,index) => {
-      return <NotificationItem notif={item} key={item.date.seconds + index}/>;
+      return <NotificationItem 
+      notif={item} key={item.type + item.date.seconds +item.date.nanoseconds + index}/>;
     })}
   </div>
 );
