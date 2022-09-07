@@ -17,14 +17,15 @@ import { Payment } from "./components/Payments/Payment";
 import { PrintPreview } from "./components/Print/PrintPreview";
 import { Test } from './components/test/Test';
 import { HomeSvg } from "./assets/Homesvg";
+import { useTimeout } from './utils/hooks/hooks';
 
 function App() {
-  const query = useAuthUser("user", auth);
-
+const query = useAuthUser("user", auth);
+const wait = useTimeout(5)
 
 
   const user = query.data;
-  if (query.isLoading) {
+  if (query.isLoading && !wait) {
     return <div className="w-full h-screen flex-center ">
       <HomeSvg/>
     </div>;

@@ -91,26 +91,28 @@ const appendtoCache=async(queryClient:QueryClient,newobj:any,index:any[])=>{
   export  const setPayment=(item:Payment,paymentId:string,floor:string,shopNo:string,queryClient:QueryClient)=>{
    const paymentRef = doc(db, "payments",paymentId);
    const shopPaymentRef = doc(db, "shops",floor,"shops",shopNo,"paymenthistory",paymentId);
-
+   const notificationRef = doc(db, "notifications", paymentId);
   //  console.log("item when updating",item)
    //query indexes to manually resolve cache
    const payment_index=["payments",item.month]
    const shoppayment_index =["payment", floor, item.shopnumber]
+   const notification_index =["notification"]
     //add payment to the payment collection and the nesyed shop paymenyhistory collection
+   const notification = {type:"payment",item} 
    const batch = writeBatch(db);
    batch.set(paymentRef,item)
    batch.set(shopPaymentRef,item)
-
+   batch.set(notificationRef, notification);
+     
    batch.commit().then((stuff)=>{
-
-  //  appendtoCache(queryClient,item,payment_index)
-  //  appendtoCache(queryClient,item,shoppayment_index)
-   
-
+   console.log("batch write successful === ",stuff)
+    appendtoCache(queryClient, item, payment_index);
+    appendtoCache(queryClient, item, shoppayment_index);
+    appendtoCache(queryClient, notification, notification_index);
   })
-  appendtoCache(queryClient,item,payment_index)
-  appendtoCache(queryClient,item,shoppayment_index)
-   .catch((stuff)=>{console.log("error writing batch ===",stuff)})
+  .catch((stuff) => {
+      console.log("error writing batch ===", stuff);
+    });
   }
 
 
