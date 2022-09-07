@@ -12,7 +12,8 @@ import { header } from "../../utils/shop-table-yars";
 import { IconContext } from "react-icons";
 import { FaRegEdit, FaPrint, FaTimes } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
-import { setPayment,deletePayment, dummy_g01, get_dummy_shop_payment, formatTyme } from "../../utils/sharedutils";
+import { setPayment,deletePayment, dummy_g01, get_dummy_shop_payment,
+   formatTyme } from "../../utils/sharedutils";
 import { getmonth, handleChange, handleSubmit } from './../../utils/paymentutils';
 import { SharedPaymentForm } from "../Shared/SharedPaymentForm";
 import { useQueryClient} from 'react-query';
@@ -31,6 +32,8 @@ interface ShopProps {
 export const Shop: React.FC<ShopProps> = ({ user }) => {
   const { state } = useLocation();
   const shop = state as ShopType;
+
+  console.log("shop == ",shop)
   const queryClient = useQueryClient();
   const [formopen, setFormOpen] = useState(false);
   const [input, setInput] = useState<Payment>({
@@ -179,7 +182,7 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
             {shop.shopfloor}
           </div>
           <div
-            className="mx-2 w-[90%] md:w-fit p-2  
+            className="mx-2 w-[95%] md:w-fit p-2  
           flex-center rounded-xl bg-slate-900"
           >
             <IconContext.Provider
@@ -253,6 +256,7 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
           deleteRow={deleteRow}
           clearError={clearError}
         />
+        <div className="p-2 m-2 min-w-20"></div>
       </div>
     </div>
   );

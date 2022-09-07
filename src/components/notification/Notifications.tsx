@@ -53,7 +53,7 @@ const notificationsQuery = useFirestoreQueryData<NotificationType,NotificationTy
 if(notificationsQuery.isLoading){
     return(
     <div className="w-full h-screen flex-center ">
-      <HomeSvg/>
+     Seems empty right now . No recent activity
     </div>
     )
 }

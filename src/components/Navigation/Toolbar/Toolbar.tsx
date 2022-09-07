@@ -19,9 +19,8 @@ const [open, setOpen] = useState(false)
 
 const queryClient = useQueryClient()   
 const mutation = useAuthSignOut(auth,{
-   onSuccess: () => {  queryClient.invalidateQueries('user')  },
-   });
-
+onSuccess: () => {  queryClient.invalidateQueries('user')  },
+});
 
 const image =user?.photoURL;
 

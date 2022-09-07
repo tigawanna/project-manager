@@ -26,15 +26,20 @@ return (
       flex flex-col items-center justify-center bg-slate-700 shadow-lg shadow-white"
       >
         <div className="w-full p-2 flex-center text-3xl font-bold text-white">
-          Welcome {user?.displayName}</div>
+          Welcome {user?.displayName}
+        </div>
         <HomeSvg />
       </div>
     </div>
-    <div
-      className="w-[90%] md:w-[30%] h-[85%] m-3 flex flex-col items-center">
-      <div className="w-full px-2 flex-center text-lg bg-slate-900 rounded-lg
-      font-lightbold text-white">Notifications</div>
+    <div className="w-[90%] md:w-[30%] h-[85%] m-3 flex flex-col items-center">
+      <div
+        className="w-full px-2 flex-center text-lg bg-slate-900 rounded-lg
+      font-lightbold text-white"
+      >
+        Notifications
+      </div>
       <Notifications />
+      <div className="p-2 m-2 min-w-20"></div>
     </div>
   </div>
 );

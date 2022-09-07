@@ -204,7 +204,7 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
           bottom: 0,
         }}
         className="absolute  w-[95%]  overflow-y-scroll  left-[2%] right-[2%]
-      scrollbar-thin scrollbar-thumb-purple-400"
+      scrollbar-thin scrollbar-thumb-purple-400 "
       >
         <TheTable
           rows={payments}
@@ -217,6 +217,7 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
           clearError={clearError}
         />
       </div>
+   
     </div>
   );
 };

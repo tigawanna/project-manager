@@ -23,7 +23,7 @@ function App() {
 const query = useAuthUser("user", auth);
 
 
-console.log(query)
+// console.log(query)
 
   if (query.isLoading ) {
     return <div className="w-full h-screen flex-center scroll-bar">
@@ -38,7 +38,7 @@ console.log(query)
         <div className="fixed top-[0px] w-[100%] z-50">
           <Toolbar user={user} />
         </div>
-        <div className="w-full h-full mt-16 ">
+        <div className="w-full h-[90%] mt-16  ">
           <Routes>
             <Route
               path="/"
