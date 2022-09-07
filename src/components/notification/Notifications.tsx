@@ -4,6 +4,7 @@ import React from 'react'
 import { db } from '../../firebase/firebaseConfig';
 import { limit } from 'firebase/firestore';
 import { HomeSvg } from '../../assets/Homesvg';
+import { formatRelativeTyme } from './../../utils/other/util';
 
 
 interface NotificationsProps {
@@ -12,6 +13,7 @@ interface NotificationsProps {
 export interface NotificationType {
   item: Item;
   type: string;
+  date:EditedOn
 }
 
 export interface Item {
@@ -38,7 +40,7 @@ export const Notifications: React.FC<NotificationsProps> = ({}) => {
 const notification_index = ["notification"];
   const notificationsRef = query(
     collection(db, "notifications"),
-    // orderBy("date", "asc"),
+    orderBy("date", "desc"),
     limit(20)
 
   );    
@@ -68,8 +70,8 @@ const notifications = notificationsQuery?.data
 
 return (
   <div className="h-full w-full overflow-y-scroll scroll-bar">
-    {notifications?.map((item) => {
-      return <NotificationItem notif={item} />;
+    {notifications?.map((item,index) => {
+      return <NotificationItem notif={item} key={item.date.seconds + index}/>;
     })}
   </div>
 );
@@ -103,6 +105,7 @@ return (
   <div className="w-full h-fit flex flex-col p-2 bg-slate-700 text-white m-2
   rounded-md ">
     <div className="w-full ">
+       <div className="text-sm font-semibold"> {formatRelativeTyme(notif?.date)}</div>
       <div className="text-xl font-bold"> {notif.item.madeBy}</div>
       <div
         style={{

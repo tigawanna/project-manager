@@ -21,16 +21,17 @@ import { useTimeout } from './utils/hooks/hooks';
 
 function App() {
 const query = useAuthUser("user", auth);
-const wait = useTimeout(5)
 
 
-  const user = query.data;
-  if (query.isLoading && !wait) {
+console.log(query)
+
+  if (query.isLoading ) {
     return <div className="w-full h-screen flex-center scroll-bar">
-      <HomeSvg/>
+    loading....
     </div>;
   }
 
+  const user = query.data;
   return (
     <div className="h-screen w-screen scroll-bar">
       <BrowserRouter>

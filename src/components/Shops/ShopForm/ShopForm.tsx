@@ -134,82 +134,88 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen,use
 
   return (
     <div className="w-full h-[90%]  flex-center flex-col">
-    
-        <form className="w-[90%] h-[80%] md:h-[60%] md:w-[60%] flex-center">
-            
-          <div className="w-full h-full  flex-center flex-col bg-slate-500">
- 
+      <form className="w-[90%] h-[80%] md:h-[60%] md:w-[60%] flex-center">
+        <div className="w-full h-full  flex-center flex-col bg-slate-500">
           <div className="w-full flex-center flex flex-wrap">
-          <div className="w-fit bg-slate-500 p-2 text-white">existing shop Nos:</div>
-          {existingShopNo.map((item,index)=>{
-           return(
-          <div key={index} className="rounded-[50%] m-1 p-2 bg-slate-600 font-bold text-white">
-            {item}</div>)
-          })}
+            <div className="w-fit bg-slate-500 p-2 text-black">
+              existing shop Nos:
+            </div>
+            {existingShopNo.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="rounded-[50%] m-1 p-2 bg-slate-600 font-bold text-white"
+                >
+                  {item}
+                </div>
+              );
+            })}
           </div>
-            <div className="p-2 w-[95%] flex flex-col flex-center bg-slate-600 rounded-md text-white">
-            <label className="text-4xl font-bold capitalize mb-2 w-full ">{floor}</label>
-              <div className="w-full h-full flex sm:flex-row flex-col ">
-                {/* shop number */}
-                <div className="w-full flex flex-col m-1">
-                  <label className="text-sm">Shop Number</label>
-                  <input
-                    type="text"
-                    placeholder="Shop number"
-                    className="p-2 w-[100%]  rounded-md "
-                    id="shopnumber"
-                    onChange={handleChange}
-                    value={input.shopnumber}
-                  />
-                  {error && error.name === "shopnumber" ? (
-                    <div className="shop-form-error">{error.message}</div>
-                  ) : null}
-                </div>
-
-                {/* shop name */}
-                <div className="w-full flex flex-col m-1">
-                  <label className="text-sm">Shop Name</label>
-                  <input
-                    type="text"
-                    placeholder="Shop name"
-                    className="p-2 w-[100%]  rounded-md "
-                    id="shopname"
-                    onChange={handleChange}
-                    value={input.shopname}
-                  />
-                  {error && error.name === "shopname" ? (
-                    <div className="shop-form-error">{error.message}</div>
-                  ) : null}
-                </div>
+          <div className="p-2 w-[95%] flex flex-col flex-center bg-slate-600 rounded-md text-white">
+            <label className="text-4xl font-bold capitalize mb-2 w-full ">
+              {floor}
+            </label>
+            <div className="w-full h-full flex sm:flex-row flex-col ">
+              {/* shop number */}
+              <div className="w-full flex flex-col m-1">
+                <label className="text-sm">Shop Number</label>
+                <input
+                  type="text"
+                  placeholder="Shop number"
+                  className="p-2 w-[100%]  rounded-md text-black font-semibold"
+                  id="shopnumber"
+                  onChange={handleChange}
+                  value={input.shopnumber}
+                />
+                {error && error.name === "shopnumber" ? (
+                  <div className="shop-form-error">{error.message}</div>
+                ) : null}
               </div>
 
-              <div className="w-full h-full flex sm:flex-row flex-col ">
-                {/* monthly rent */}
-                <div className="w-full flex flex-col m-1">
-                  <label className="text-sm">Monthly Rent</label>
-                  <input
-                    type="number"
-                    placeholder="monthlyrent"
-                    className="p-2  w-[100%]  rounded-md "
-                    id="monthlyrent"
-                    onChange={handleChange}
-                    value={input.monthlyrent}
-                  />
-                  {error && error.name === "monthlyrent" ? (
-                    <div className="shop-form-error">{error.message}</div>
-                  ) : null}
-                </div>
+              {/* shop name */}
+              <div className="w-full flex flex-col m-1">
+                <label className="text-sm">Shop Name</label>
+                <input
+                  type="text"
+                  placeholder="Shop name"
+                  className="p-2 w-[100%]  rounded-md text-black font-semibold"
+                  id="shopname"
+                  onChange={handleChange}
+                  value={input.shopname}
+                />
+                {error && error.name === "shopname" ? (
+                  <div className="shop-form-error">{error.message}</div>
+                ) : null}
               </div>
             </div>
-             <button
-             onClick={(e)=>handleSubmit(e)}
-             className="py-2 px-5 m-2 bg-slate-700 rounded 
-             hover:bg-slate-800 capitalize font-medium text-white"
-             >add</button>
 
+            <div className="w-full h-full flex sm:flex-row flex-col ">
+              {/* monthly rent */}
+              <div className="w-full flex flex-col m-1">
+                <label className="text-sm">Monthly Rent</label>
+                <input
+                  type="number"
+                  placeholder="monthlyrent"
+                  className="p-2  w-[100%]  rounded-md text-black font-semibold"
+                  id="monthlyrent"
+                  onChange={handleChange}
+                  value={input.monthlyrent}
+                />
+                {error && error.name === "monthlyrent" ? (
+                  <div className="shop-form-error">{error.message}</div>
+                ) : null}
+              </div>
+            </div>
           </div>
-        </form>
-      </div>
- 
+          <button
+            onClick={(e) => handleSubmit(e)}
+            className="py-2 px-5 m-2 bg-slate-700 rounded 
+             hover:bg-slate-800 capitalize font-medium text-white"
+          >
+            add
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };

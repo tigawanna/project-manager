@@ -25,14 +25,15 @@ return (
         className="w-[90%] h-full  md:h-[60%] 
       flex flex-col items-center justify-center bg-slate-700 shadow-lg shadow-white"
       >
-        <div className="w-full p-2 flex-center text-3xl font-bold">Welcome {user?.displayName}</div>
+        <div className="w-full p-2 flex-center text-3xl font-bold text-white">
+          Welcome {user?.displayName}</div>
         <HomeSvg />
       </div>
     </div>
     <div
       className="w-[90%] md:w-[30%] h-[85%] m-3 flex flex-col items-center">
       <div className="w-full px-2 flex-center text-lg bg-slate-900 rounded-lg
-      font-lightbold">Notifications</div>
+      font-lightbold text-white">Notifications</div>
       <Notifications />
     </div>
   </div>

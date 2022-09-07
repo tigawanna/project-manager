@@ -39,10 +39,10 @@ return (
      {/* <div className='m-1 w-full p-3 bg-slate-600 flex-center'>
      <Link to="/project">Project</Link>
      </div> */}
-      <div className='m-1 w-full p-3 bg-slate-300 flex-center'>
+      <div className='m-1 w-full p-3 bg-slate-300 flex-center text-slate-800'>
      <Link to="/payments">Payments</Link>
      </div>
-     <div className='m-1 w-full p-3 bg-slate-300 flex-center'>
+     <div className='m-1 w-full p-3 bg-slate-300 flex-center text-slate-700'>
      <Link to="/shops">Shops</Link>
      </div>
 

@@ -1,7 +1,7 @@
 import dayjs  from 'dayjs';
 import { tyme } from './types';
-
-
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 
 
@@ -18,6 +18,18 @@ export const formatTyme =(time?:tyme)=>{
   return dayjs(new Date()).format("DD/MM/YYYY")
  
 }
+
+export const formatRelativeTyme = (time?: tyme) => {
+  if (time) {
+    const ty = new Date(
+      //@ts-ignore
+      time.seconds * 1000 + time.nanoseconds / 1000000
+    );
+    return dayjs(ty).fromNow();
+  }
+
+  return dayjs(new Date()).fromNow();
+};
 
 export const justTym =(time:tyme|null|undefined)=>{
     if(time){
