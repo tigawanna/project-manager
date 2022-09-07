@@ -34,11 +34,11 @@ import { useQueryClient } from "react-query";
 export const ProtectedRoute = ({ user, children }) => {
   const queryClient = useQueryClient();
 
-    if (!user) {
-      // insert_dummy_to_cache(dummy_user,["user"],queryClient)
-      // queryClient.setQueryData(["user"],dummy_user);
-      return <Navigate to="/login" replace />;
-    }
+    // if (!user) {
+    //   // insert_dummy_to_cache(dummy_user,["user"],queryClient)
+    //   // queryClient.setQueryData(["user"],dummy_user);
+    //   return <Navigate to="/login" replace />;
+    // }
   
     return children;
   };
