@@ -51,11 +51,9 @@ const notificationsQuery = useFirestoreQueryData<NotificationType,NotificationTy
 {subscribe:true});
  
 if(notificationsQuery.isLoading){
-    return(
-    <div className="w-full h-screen flex-center ">
-     Seems empty right now . No recent activity
-    </div>
-    )
+    return (
+      <div className="w-full h-screen flex-center animate-pulse bg-slate-700 rounded">loading</div>
+    );
 }
 if (notificationsQuery.isError) {
   return (
@@ -67,6 +65,13 @@ if (notificationsQuery.isError) {
 
 const notifications = notificationsQuery?.data  
 // console.log("notifications ==== ",notifications)
+if (!notifications) {
+  return (
+    <div className="w-full h-screen flex-center ">
+      Seems empty right now . No recent activity
+    </div>
+  );
+}
 
 return (
   <div className="h-full w-full overflow-y-scroll scroll-bar">

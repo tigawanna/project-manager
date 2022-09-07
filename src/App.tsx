@@ -16,12 +16,13 @@ import { Shop } from "./components/shop/Shop";
 import { Payment } from "./components/Payments/Payment";
 import { PrintPreview } from "./components/Print/PrintPreview";
 import { Test } from './components/test/Test';
-import { HomeSvg } from "./assets/Homesvg";
-import { useTimeout } from './utils/hooks/hooks';
-import { query } from 'firebase/firestore';
+
 
 function App() {
 const query = useAuthUser("user", auth);
+// useEffect(()=>{
+// console.log("user === ",query.data)
+// },[query?.data])
 
 
 // console.log(query)

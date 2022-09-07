@@ -1,7 +1,7 @@
 import { User} from 'firebase/auth';
-import { doc } from 'firebase/firestore';
 import { HomeSvg } from '../../assets/Homesvg';
-import { db } from '../../firebase/firebaseConfig';
+// import { db } from '../../firebase/firebaseConfig';
+// import { doc } from "firebase/firestore";
 import { Notifications } from './../notification/Notifications';
 
 
