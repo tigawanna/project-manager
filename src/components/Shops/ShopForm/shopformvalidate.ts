@@ -30,7 +30,7 @@ export const validate = ({ input, error, setError,shops }: ShopFormValidate) => 
         // checks if shopnumber matches patter G-00/99 or M1/M9-00/99 ,ex , M2-09 G-80 M1-99 G-01
         if(!shopPattern.test(input.shopnumber.toUpperCase())) {
           setError({ name: "shopnumber", message: "invalid shop number pattern" });
-          console.log("inside g test value",shopPattern.test(input.shopnumber.toUpperCase()))
+          // console.log("inside g test value",shopPattern.test(input.shopnumber.toUpperCase()))
           return false;
         }
     

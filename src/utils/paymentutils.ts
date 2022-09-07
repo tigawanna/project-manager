@@ -127,7 +127,7 @@ paymentmode:input.paymentmode,
 paymentId
 
 }
-console.log("saving ..... ",item)
+// console.log("saving ..... ",item)
 if (paymentValidation({ input, error, setError })){
  setPayment(item,paymentId,floor,input.shopnumber,queryClient)
  setOpen(!open)

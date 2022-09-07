@@ -39,7 +39,7 @@ const notification_index = ["notification"];
   const notificationsRef = query(
     collection(db, "notifications"),
     // orderBy("date", "asc"),
-    // limit(30)
+    limit(20)
 
   );    
 const notificationsQuery = useFirestoreQueryData<NotificationType,NotificationType[]>(
@@ -64,7 +64,7 @@ if (notificationsQuery.isError) {
 }
 
 const notifications = notificationsQuery?.data  
-console.log("notifications ==== ",notifications)
+// console.log("notifications ==== ",notifications)
 
 return (
   <div className="h-full w-full overflow-y-scroll scroll-bar">

@@ -109,13 +109,13 @@ const appendtoCache=async(queryClient:QueryClient,newobj:any,index:any[])=>{
    batch.set(notificationRef, notification);
      
    batch.commit().then((stuff)=>{
-   console.log("batch write successful === ",stuff)
+//    console.log("batch write successful === ",stuff)
     appendtoCache(queryClient, item, payment_index);
     appendtoCache(queryClient, item, shoppayment_index);
     appendtoCache(queryClient, notification, notification_index);
   })
   .catch((stuff) => {
-      console.log("error writing batch ===", stuff);
+    //   console.log("error writing batch ===", stuff);
     });
   }
 
@@ -142,11 +142,11 @@ const appendtoCache=async(queryClient:QueryClient,newobj:any,index:any[])=>{
      batch
        .commit()
        .then((stuff) => {
-         console.log("batch delete successful === ", stuff);
+        //  console.log("batch delete successful === ", stuff);
         appendtoCache(queryClient, notification, notification_index);
        })
        .catch((stuff) => {
-         console.log("error deleting batch ===", stuff);
+        //  console.log("error deleting batch ===", stuff);
        });
 
     // removeFromCache(queryClient,item,payment_index)

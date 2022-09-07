@@ -8,10 +8,10 @@ export const loginUser= () => {
 
 signInWithRedirect(auth, provider)
 .then((result:any) => {
-console.log("auth result === === ",result)
+// console.log("auth result === === ",result)
 }).catch((error) => {
 // Handle Errors here.
-console.log("auth error  === ",error)
+// console.log("auth error  === ",error)
 
 });
 

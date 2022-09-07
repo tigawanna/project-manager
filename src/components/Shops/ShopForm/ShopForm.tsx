@@ -22,7 +22,7 @@ interface ShopFormProps {
 }
 
 export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen,user }) => {
-  console.log("user in shops  ==== ", user?.displayName);
+  // console.log("user in shops  ==== ", user?.displayName);
   const floormap = {
     ground: "G-",
     first: "M1-",
@@ -61,14 +61,14 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen,use
     {
       onMutate: async (newShop) => {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        console.log(newShop)
+        // console.log(newShop)
           const notification = {
             date: new Date(),
             type: "added shop",
             item:newShop,
           };
 
-       console.log("notification ",notification)   
+      //  console.log("notification ",notification)   
         await addShopNotificationMutation.mutate(notification);
         await queryClient.cancelQueries(["shops",floor]);
         // Snapshot the previous value
@@ -84,7 +84,7 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen,use
         return { previousShops };
       },
       onSuccess:async(item)=>{
-        console.log("item",item)
+        // console.log("item",item)
 
       }
 
