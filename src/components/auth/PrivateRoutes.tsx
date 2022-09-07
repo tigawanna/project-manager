@@ -32,7 +32,7 @@ import { useQueryClient } from "react-query";
 //@ts-ignore
 
 export const ProtectedRoute = ({ user, children }) => {
-  const queryClient = useQueryClient();
+const queryClient = useQueryClient();
 
     if (!user) {
       // insert_dummy_to_cache(dummy_user,["user"],queryClient)

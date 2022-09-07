@@ -23,7 +23,7 @@ const firebaseConfig = {
 };
 
 
-console.log("testing firebaseconfig =====",firebaseConfig)
+// console.log("testing firebaseconfig =====",firebaseConfig)
 
 const app = initializeApp(firebaseConfig);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
