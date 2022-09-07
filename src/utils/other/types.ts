@@ -5,6 +5,7 @@ shopnumber:string
 shopfloor:string
 monthlyrent:number
 shoparrears?:string
+madeBy?:string|null
 }
 export interface Payment{
   shopnumber:string,

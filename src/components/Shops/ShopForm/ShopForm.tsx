@@ -12,6 +12,7 @@ import { getNextShopNumber } from './../../../utils/sharedutils';
 
 
 
+
 interface ShopFormProps {
   user?: User | null;
   floor: string;
@@ -20,7 +21,8 @@ interface ShopFormProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen }) => {
+export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen,user }) => {
+  console.log("user in shops  ==== ", user?.displayName);
   const floormap = {
     ground: "G-",
     first: "M1-",
@@ -36,6 +38,7 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen }) 
     date: new Date(),
     monthlyrent: 10000,
     shopfloor: floor,
+   
     shopname: "",
     //@ts-ignore
     shopnumber: `${floormap[floor]}${nextShopNo}`,
@@ -45,6 +48,9 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen }) 
 
 
  
+  
+  const notificationRef = doc(db, "notifications", input.shopnumber);
+  const addShopNotificationMutation = useFirestoreDocumentMutation(notificationRef)
 
   const shopRef = doc(db, "shops",floor,"shops",input.shopnumber);
   
@@ -56,6 +62,14 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen }) 
       onMutate: async (newShop) => {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         console.log(newShop)
+          const notification = {
+            date: new Date(),
+            type: "added shop",
+            item:newShop,
+          };
+
+       console.log("notification ",notification)   
+        await addShopNotificationMutation.mutate(notification);
         await queryClient.cancelQueries(["shops",floor]);
         // Snapshot the previous value
         const previousShops = queryClient.getQueryData(["shops",floor]);
@@ -69,6 +83,10 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen }) 
         // Return a context object with the snapshotted value
         return { previousShops };
       },
+      onSuccess:async(item)=>{
+        console.log("item",item)
+
+      }
 
     }
   );
@@ -94,7 +112,8 @@ export const ShopForm: React.FC<ShopFormProps> = ({ floor,shops,open,setOpen }) 
    shopnumber:input.shopnumber.toUpperCase(),
    shopname:input.shopname.toLowerCase(),
    monthlyrent:input.monthlyrent,
-   shopfloor:input.shopfloor.toLowerCase()
+   shopfloor:input.shopfloor.toLowerCase(),
+   madeBy:user?.displayName,
   }
 
 

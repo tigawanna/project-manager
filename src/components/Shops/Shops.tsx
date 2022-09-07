@@ -26,25 +26,25 @@ export const Shops: React.FC<ShopsProps> = ({ user }) => {
   );
   const floors = ["ground", "first", "second", "third"];
 
-  const shopQuery = useFirestoreQueryData(["shops", floor], shopsRef);
+  const shopsQuery = useFirestoreQueryData(["shops", floor], shopsRef);
   // console.log("query  ==== ",shopQuery)
   // console.log("shop query ==== ",shopQuery?.data)
   const queryClient = useQueryClient();
-  const data = shopQuery.data as Shop[];
+  const data = shopsQuery.data as Shop[];
 
   // if (!shopQuery.data && floor === "ground") {
   //  insert_dummy_to_cache(dummy_ground_shops,["shops","ground"],queryClient)
   // }
 
-  if (shopQuery.error ) {
+  if (shopsQuery.error ) {
 
     return (
       <div className="w-full h-full flex flex-wrap  text-red-900">
-      ERROR LOADING SHOPS {shopQuery.error.message}
+      ERROR LOADING SHOPS {shopsQuery.error.message}
         </div> );
   }
 
-  if (shopQuery.isLoading) {
+  if (shopsQuery.isLoading) {
     return <div className="w-full h-full flex-center"> loading ..... </div>;
   }
    
@@ -70,7 +70,7 @@ export const Shops: React.FC<ShopsProps> = ({ user }) => {
     <IconContext.Provider value={{ size: "50px", className:"text-slate-600" }} >
       <FaTimes onClick={()=>setOpen(false)}/></IconContext.Provider>
       </div>
-       <ShopForm floor={floor} shops={data} open={open} setOpen={setOpen}/>
+       <ShopForm floor={floor} shops={data} open={open} setOpen={setOpen} user={user}/>
     </div>:null}
 
       <div className="flex-center  w-full  m-2 mt-14 flex-wrap">

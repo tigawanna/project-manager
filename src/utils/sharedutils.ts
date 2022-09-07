@@ -98,7 +98,11 @@ const appendtoCache=async(queryClient:QueryClient,newobj:any,index:any[])=>{
    const shoppayment_index =["payment", floor, item.shopnumber]
    const notification_index =["notification"]
     //add payment to the payment collection and the nesyed shop paymenyhistory collection
-   const notification = {type:"payment",item} 
+   const notification = {
+     date: new Date(),
+     type: item?.editedOn ? "updated payment" : "new payment",
+     item,
+   }; 
    const batch = writeBatch(db);
    batch.set(paymentRef,item)
    batch.set(shopPaymentRef,item)
@@ -120,13 +124,30 @@ const appendtoCache=async(queryClient:QueryClient,newobj:any,index:any[])=>{
   export  const deletePayment=(item:Payment,floor:string,shopNo:string,queryClient:QueryClient)=>{
     const paymentRef = doc(db, "payments",item.paymentId);
     const shopPaymentRef = doc(db, "shops",floor,"shops",shopNo,"paymenthistory",item.paymentId);
+    const notificationRef = doc(db, "notifications", item.paymentId);
+    const notification_index = ["notification"];
+    const notification = {
+        date:new Date(),
+        type:"deleted payment",
+        item,
+      };
   //   const payment_index=["payments",item.month]
   //  const shoppayment_index =["payment", floor,item.shopnumber]
     //add payment to the payment collection and the nesyed shop paymenyhistory collection
+
     const batch = writeBatch(db);
     batch.delete(paymentRef)
     batch.delete(shopPaymentRef)
-    batch.commit().catch((stuff)=>{console.log("error deleting batch ===",stuff)})
+    batch.set(notificationRef, notification);
+     batch
+       .commit()
+       .then((stuff) => {
+         console.log("batch delete successful === ", stuff);
+        appendtoCache(queryClient, notification, notification_index);
+       })
+       .catch((stuff) => {
+         console.log("error deleting batch ===", stuff);
+       });
 
     // removeFromCache(queryClient,item,payment_index)
     // removeFromCache(queryClient,item,shoppayment_index)

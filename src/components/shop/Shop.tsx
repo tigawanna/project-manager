@@ -165,9 +165,9 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
   // console.log("shop payments === ",payments);
 
   return (
-    <div className=" w-full h-full flex flex-col justify-between">
-      <div ref={ref} className="h-fit">
-        <div className="h-full w-full py-3 flex-wrap flex-center  z-40 bg-slate-700">
+    <div className=" w-full h-full flex flex-col justify-between overflow-y-hidden ">
+      <div ref={ref} className="h-fit fixed top-[10%] w-full">
+        <div className="h-full w-full py-3 flex-wrap flex-center  z-40 bg-slate-700 text-white">
           <div className="mx-1 font-bold border border-white px-1">
             {shop.shopname}
           </div>
@@ -239,7 +239,7 @@ export const Shop: React.FC<ShopProps> = ({ user }) => {
           height: `${bottomHeight}%`,
           bottom: "0px",
         }}
-        className="absolute  w-full  overflow-y-scroll 
+        className="absolute  w-[95%]  overflow-y-scroll left-[2%] right-[2%]
         scrollbar-thin scrollbar-thumb-purple-400"
       >
         <TheTable

@@ -201,9 +201,11 @@ export const Payment: React.FC<paymentProps> = ({ user }) => {
         style={{
           // top: `${ratio}%`,
           height: bottomHeight,
-          bottom:0
+          bottom: 0,
         }}
-      className="absolute  w-full  overflow-y-scroll  scrollbar-thin scrollbar-thumb-purple-400">
+        className="absolute  w-[95%]  overflow-y-scroll  left-[2%] right-[2%]
+      scrollbar-thin scrollbar-thumb-purple-400"
+      >
         <TheTable
           rows={payments}
           header={header}

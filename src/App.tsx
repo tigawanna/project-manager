@@ -26,18 +26,18 @@ const wait = useTimeout(5)
 
   const user = query.data;
   if (query.isLoading && !wait) {
-    return <div className="w-full h-screen flex-center ">
+    return <div className="w-full h-screen flex-center scroll-bar">
       <HomeSvg/>
     </div>;
   }
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden overflow-y-hidden">
+    <div className="h-screen w-screen scroll-bar">
       <BrowserRouter>
         <div className="fixed top-[0px] w-[100%] z-50">
           <Toolbar user={user} />
         </div>
-        <div className="w-full h-full mt-16 overflow-y-hidden">
+        <div className="w-full h-full mt-16 ">
           <Routes>
             <Route
               path="/"
