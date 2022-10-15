@@ -3,10 +3,9 @@ import ReactToPrint from 'react-to-print';
 import { PrintThis } from './Printme';
 import { FaPrint } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
-import { User } from 'firebase/auth';
-
+import { Admin, User } from 'pocketbase';
 interface PrintPreviewTypes{
-user?:User|null
+  user?: User | Admin | null
 }
 interface TheTableProps {
 title:string    

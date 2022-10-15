@@ -1,4 +1,3 @@
-import { User } from "firebase/auth";
 import React, { useState } from "react";
 import { ShopDetails } from "./ShopParts";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
@@ -20,11 +19,11 @@ import { useQueryClient} from 'react-query';
 import { insert_dummy_to_cache} from './../../utils/sharedutils';
 import useMeasure from "react-use-measure";
 import { TheTable } from "../../table";
-
+import { Admin, User } from 'pocketbase';
 
 
 interface ShopProps {
-  user?: User | null;
+  user?: User | Admin | null
   floor: string;
   shopId: string;
 }

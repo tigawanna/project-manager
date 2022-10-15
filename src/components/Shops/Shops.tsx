@@ -1,4 +1,3 @@
-import { User } from "firebase/auth";
 import { db } from "../../firebase/firebaseConfig";
 import { collection, query, orderBy, where } from "firebase/firestore";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
@@ -10,9 +9,10 @@ import { FaTimes } from "react-icons/fa";
 import { IconContext } from 'react-icons/lib';
 import { dummy_ground_shops, insert_dummy_to_cache } from './../../utils/sharedutils';
 import { useQueryClient } from 'react-query';
+import { Admin, User } from 'pocketbase';
 
 interface ShopsProps {
-  user?: User | null;
+  user?: User | Admin | null
 }
 
 export const Shops: React.FC<ShopsProps> = ({ user }) => {

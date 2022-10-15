@@ -18,6 +18,48 @@ code {
     monospace;
 }
 
+table {
+  border: 1px solid lightgray;
+  width: 100%;
+  table-layout: fixed;
+}
+
+tbody {
+  border-bottom: 1px solid lightgray;
+  width: 100%;
+}
+
+th {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+
+}
+.header-td{
+  padding: 20px;
+  margin: 1px;
+  background-color: blueviolet;
+}
+tr{
+width: 100%;
+}
+td{
+  width:100%;
+  margin: 1px;
+  border: 1px solid lightgray;
+  text-align: center;
+  padding: 5px ;
+
+}
+tfoot {
+  color: gray;
+
+}
+
+tfoot th {
+  font-weight: normal;
+}
+
+
 #home-svg-wrapper,#home-svg-body {
  animation: draw 5s ease-in-out;
  /* animation-iteration-count: infinite; */

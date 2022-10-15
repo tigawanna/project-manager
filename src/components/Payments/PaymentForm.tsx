@@ -1,5 +1,5 @@
 
-import { User } from "firebase/auth";
+
 import { collection,query,orderBy, where } from "firebase/firestore";
 import { useFirestoreQueryData} from "@react-query-firebase/firestore";
 import React from "react";
@@ -10,6 +10,7 @@ import { Payment, Shop } from './../../utils/other/types';
 import { SharedPaymentForm } from '../Shared/SharedPaymentForm';
 import { handleSubmit } from './../../utils/paymentutils';
 import { QueryClient } from 'react-query';
+import { User } from "pocketbase";
 
 
 

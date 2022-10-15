@@ -1,32 +1,59 @@
 import React from "react";
-import { Navigate} from 'react-router-dom';
-import { loginUser } from './../../utils/auth/loginUser';
-import {FaGoogle} from 'react-icons/fa'
-import { IconContext } from "react-icons";
-import { User } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { Admin, User } from "pocketbase";
+import { providers } from "../../pocketbase/config";
+
+
 
 
 interface LoginProps {
-user?:User|null
+user?: User | Admin | null
+}
+interface ProvType{
+
+    name: string
+    state: string
+    codeVerifier: string
+    codeChallenge: string
+    codeChallengeMethod: string
+    authUrl: string
+
 }
 
+export const Login: React.FC<
+  LoginProps
+> = ({user}) => {
+const provs = providers.authProviders;
+const navigate = useNavigate()
+// console.log("user in Login.tsx  ==  ",user)
+if(user?.email){
+  navigate('/')
+}
+const startLogin = (prov:ProvType) => { localStorage.setItem("provider",JSON.stringify(prov));
+  const redirectUrl = "http://localhost:3000/redirect";
+  const url = prov.authUrl + redirectUrl;
+      // console.log("prov in button === ", prov)
+      // console.log("combined url ==== >>>>>>  ",url)
+  
+    if (typeof window !== "undefined") {
+      window.location.href = url;
+    }
+  };
 
-export const Login: React.FC<LoginProps> = ({user}) => {
-
-  if(user){
-  return <Navigate to='/' replace />
-  }
   return (
-
-    <div className="w-full h-full flex justify-center items-center">
-      <IconContext.Provider value={{ size: "25px", className: "table-edit-icons" }} >
-      <div className=" p-5">
-        <button className="p-5 flex bg-slate-700 hover:bg-slate-800 rounded-sm " onClick={() => loginUser()}>
-        <FaGoogle/> <div className="mx-2 text-xl"> Login with Google</div> 
-        </button>
-
+    <div className="w-full h-full flex-center-col">
+      <div className="text-3xl font-bold ">
+        LOGIN
       </div>
-      </IconContext.Provider>
+      {provs &&
+        provs?.map((item:any) => {
+          return (
+            <button 
+            className="p-2 bg-purple-600"
+            key={item.name}
+            onClick={() => startLogin(item)}>{item.name}</button>
+          );
+        })}
     </div>
   );
 };

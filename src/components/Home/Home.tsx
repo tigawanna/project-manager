@@ -1,13 +1,11 @@
-import { User} from 'firebase/auth';
 import { HomeSvg } from '../../assets/Homesvg';
 // import { db } from '../../firebase/firebaseConfig';
 // import { doc } from "firebase/firestore";
 import { Notifications } from './../notification/Notifications';
-
-
+import { Admin, User } from 'pocketbase';
 
 interface HomeProps {
-user?:User|null
+  user?: User | Admin | null
 }
 
 

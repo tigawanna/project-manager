@@ -5,13 +5,13 @@ import { Link} from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 import { useAuthSignOut} from '@react-query-firebase/auth';
 import { auth } from '../../../firebase/firebaseConfig';
-import { User } from 'firebase/auth';
 import { useQueryClient } from 'react-query';
 import { Consent } from '../../Modal/Consent';
 import { useState } from 'react';
+import { Admin, User } from 'pocketbase';
 
 interface ToolbarProps {
-user?:User|null
+   user?: User | Admin | null
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
