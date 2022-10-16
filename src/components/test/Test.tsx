@@ -2,7 +2,6 @@ import React from 'react'
 import { useQuery } from 'react-query';
 import { client } from '../../pocketbase/config';
 import { TheTable } from '../../table';
-import { header } from '../../utils/payment-vars';
 
 import { Record } from 'pocketbase';
 import { useReactTable, getCoreRowModel, flexRender, createColumnHelper } from '@tanstack/react-table';
@@ -12,7 +11,28 @@ import { PaymentResponnse } from '../Payments/util/types';
 interface TestProps {
 
 }
+// id: string
+// created: string
+// updated: string
+// "@collectionId": string
+// "@collectionName": string
+// "@expand": Expand
+// amount: number
+// createdBy: string
+// deletedAt: string
+// deletedBy: string
+// shop: string
+// updatedBy: string
+export const header = [
+  { name: "PayId", prop: "id", type: "string", editable: true },
+  { name: "Created On ", prop: "created", type: "date", editable: true },
+  { name: "Updated On", prop: "updated", type: "date", editable: true },
+  { name: "Amount", prop: "amount", type: "number", editable: true },
+  { name: "Shop name", prop: "shop.name", type: "expand", editable: true },
 
+
+
+]
 
 export const Test: React.FC<TestProps> = ({}) => {
 
@@ -43,60 +63,14 @@ export const Test: React.FC<TestProps> = ({}) => {
     return <div className="w-full h-full flex-center"> loading ..... </div>;
   }
 
-
+console.log("data === ",data)
 return (
 <div className=" w-full min-h-screen h-full">
-    <div className="w-full h-full">
-      <table className='w-full h-full '>
-        <thead className='sticky top-[60px] z-50 w-full '>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id} className=''>
-              {headerGroup.headers.map(header => (
-                <th key={header.id} className='bg-purple-900 p-3'>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className='w-full '>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id} className=''>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id} className='w-full'>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          {table.getFooterGroups().map(footerGroup => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map(header => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                      header.column.columnDef.footer,
-                      header.getContext()
-                    )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
-      </table>
-      <div className="h-4" />
-      <button onClick={() => console.log("goo")} className="border p-2">
-        Rerender
-      </button>
-    </div>
+    <TheTable
+          rows={data}
+          header={header}
+   
+        />
   </div>
 );
 }

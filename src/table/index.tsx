@@ -165,8 +165,8 @@ export interface TheTableProps {
   return (
     <div className="w-full h-full relative top-0">
       <div className="h-fit">
-        <table border={1} className="table-auto w-full ">
-          <thead className="p-7 w-screen sticky top-0 h-16">
+        <table border={1} className="table-fixed w-full ">
+          <thead className="p-7 w-screen sticky top-[10%] h-16">
             <IconContext.Provider
               value={{
                 size: "20px",
@@ -205,6 +205,7 @@ export interface TheTableProps {
           <tbody className="h-full">
             {data &&
               data.map((dataitem: Object, dataindex: number) => {
+                // console.log("data item==== ",dataitem)
                 return mainRow(
                   dataindex,
                   dataitem,

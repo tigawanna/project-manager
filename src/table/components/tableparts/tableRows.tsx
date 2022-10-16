@@ -47,9 +47,15 @@ if(type==="date" && (item[prop] as Tyme).seconds){
 //checking for javascript date object to convert it to date string
 if(type==="date" && item[prop] instanceof Date){
   return dayjs(item[prop]).format("DD/MM/YYYY")
- }
- 
-//@ts-ignore
+}
+  if (type === "date") {
+    return dayjs(item[prop]).format("DD/MM/YYYY")
+  }
+if(type === "expand"){
+  //@ts-ignore
+  const args = prop.split('.')
+ return item['@expand'][args[0]][args[1]]
+}
 return item[prop];
 };
 
