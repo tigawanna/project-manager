@@ -16,17 +16,18 @@ export interface PeepResponse {
 }
 
 //agrho lan
-export const client = new PocketBase(
-  "http://192.168.0.101:8090"
-);
+// export const client = new PocketBase(
+//   "http://192.168.0.101:8090"
+// );
 //home
 // export const client = new PocketBase("http://192.168.43.238:8090");
 //127.0.0.1
-// export const client = new PocketBase(
-//   "http://127.0.0.1:8090"
-// );
+export const client = new PocketBase(
+  "http://127.0.0.1:8090"
+);
 const redirectUrl =
   "http://127.0.0.1:8090/redirect.html";
+
 export const getUser = async () => {
   return await client.authStore.model;
 };

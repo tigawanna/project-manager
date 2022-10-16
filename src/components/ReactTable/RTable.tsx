@@ -26,7 +26,7 @@ export const columns = [
    columnHelper.accessor('@expand.shop.name', {
        header: () => <span className=''>Shop Name</span>,
         cell: info => info.renderValue(),
-       footer: info => <span className='p-1 border-1 bg-purple-800'>Shop Name</span>,
+       footer: info => <span className='p-1 border-1 '>Shop Name</span>,
     }),
     columnHelper.accessor(row => row?.amount, {
         id: 'amount',
